@@ -48,6 +48,7 @@ void printSomething()
   t_last = millis();
 
   Serial5.printf("t: %.2f\n",t_last/1000.0f);
+  Serial.printf("t: %.2f (Loopback)\n",t_last/1000.0f);
   digitalWrite(4,!digitalRead(4));
 
   return;
