@@ -25,8 +25,8 @@ char hello[13] = "hello world!";
 void setup()
 {
   // Set up Pins
-  pinMode(5,OUTPUT);
-  digitalWrite(5,HIGH);
+  pinMode(4,OUTPUT); digitalWrite(4,LOW);
+  pinMode(5,OUTPUT); digitalWrite(5,HIGH);
 
   // Set up Serial ports
   Serial.begin(115200);
@@ -41,13 +41,20 @@ void setup()
 void loop()
 {
 
-  // Now just opening as a serial bridge
+  // Toggle LED to indicate alive-ness
   digitalWrite(5,!digitalRead(5));
+
+  // Send the string
   str_msg.data = hello;
   chatter.publish( &str_msg );
 
   Serial.printf("%.2f : Message sent",(float) millis()/1000.0f);
   nh.spinOnce();
+
+  // Turn on LED if connected
+  (nh.connected()) ? digitalWrite(4,HIGH) : digitalWrite(4,LOW);
+
+  // Delay the loop a bit
   delay(1000);
 
 
